@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFDataAccessLibrary.Models {
+namespace EFDataAccessLibrary.Models.EmployeeFolder {
     public class EmployeeModel {
         public int Id { get; set; }
         public string FName { get; set; }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EFDataAccessLibrary.Models {
+namespace EFDataAccessLibrary.Models.EmployeeFolder {
     public class EmployeeAddress {
         public int Id { get; set; }
         
