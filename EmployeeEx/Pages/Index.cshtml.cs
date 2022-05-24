@@ -45,14 +45,7 @@ namespace EmployeeEx.Pages {
 
         public void OnGet() {
             //LoadSampleData();
-            //LoadSampleData100000RowsVer();
-            //LoadSampleDataWOAutoDetect();
-            //LoadBigData();
             //SpamEmployee();
-            //SpamEmployeeWithReset();
-            //SpamEmployeeAddRangeVer();
-            //Spam1MilEmployee();
-            //SpamEmployeeNoAutoDetect();
 
             //functions.ChangeExistingRowWithAttach();
             //functions.GetEmployeeByZipCode(401916);
@@ -82,7 +75,7 @@ namespace EmployeeEx.Pages {
             //BenchmarkRunner.Run<OrderBenchmarks>();
             //BenchmarkRunner.Run<FillFactorBenchmark>();
             //BenchmarkRunner.Run<ContextLoopingBenchmarks>();
-            BenchmarkRunner.Run<SplitQueryBenchmarks>();
+            //BenchmarkRunner.Run<SplitQueryBenchmarks>();
             //BenchmarkRunner.Run<PoolingBenchMarks>();
 
             //SimpleMappingExercise();
@@ -134,6 +127,8 @@ namespace EmployeeEx.Pages {
         private void SpamEmployeeWithReset() {
             //_db.ChangeTracker.AutoDetectChangesEnabled = false;
             List<Employee> employeeList = new List<Employee>();
+
+            //resets the auto increment
             _db.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Employee, RESEED, 204001)");
 
             for (int i = 0; i < 100000; i++) {
@@ -195,14 +190,14 @@ namespace EmployeeEx.Pages {
             }
         }
 
-        private void LoadBigData() {
-            if (_db.BigData.Count() != 0) {
-                string file = System.IO.File.ReadAllText("generated2000.json");
-                var bigData = JsonSerializer.Deserialize<List<BigData>>(file);
-                _db.BigData.AddRange(bigData);
-                _db.SaveChanges();
-            }
-        }
+        //private void LoadBigData() {
+        //    if (_db.BigData.Count() != 0) {
+        //        string file = System.IO.File.ReadAllText("generated2000.json");
+        //        var bigData = JsonSerializer.Deserialize<List<BigData>>(file);
+        //        _db.BigData.AddRange(bigData);
+        //        _db.SaveChanges();
+        //    }
+        //}
 
         private void SimpleMappingExercise() {
 
