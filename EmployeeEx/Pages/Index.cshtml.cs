@@ -18,6 +18,7 @@ using EmployeeEx.Models;
 using EmployeeEx.BenchMarks;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using EFDataAccessLibrary.Models.EmployeeFolder;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace EmployeeEx.Pages {
     public class IndexModel : PageModel {
@@ -78,9 +79,11 @@ namespace EmployeeEx.Pages {
             //BenchmarkRunner.Run<SplitQueryBenchmarks>();
             //BenchmarkRunner.Run<PoolingBenchMarks>();
 
+            //AccessChangeTrackerPropValues();
+
             //SimpleMappingExercise();
 
-            
+
         }
 
             private void SpamEmployeeAddRangeVer() {
@@ -215,6 +218,21 @@ namespace EmployeeEx.Pages {
             Customer customer = mapper.Map<Customer>(person);
             Person anotherPerson = mapper.Map<Person>(customer);
             anotherPerson.PrintDetails();
+        }
+
+        private void AccessChangeTrackerPropValues() {
+            var employee = _db.Employee.First(emp => emp.FName.Equals("Fox"));
+            employee.FName = "Esther";
+            _db.ChangeTracker.DetectChanges();
+            var modifiedEntries = _db.ChangeTracker.Entries().Where(e => e.State == EntityState.Modified);
+            foreach (EntityEntry entity in modifiedEntries) {
+                foreach (var propName in entity.CurrentValues.Properties) {
+                    Console.WriteLine("Before");
+                    Console.WriteLine(entity.CurrentValues[propName]);
+                    Console.WriteLine("After");
+                    Console.WriteLine(entity.OriginalValues[propName]);
+                }
+            }
         }
 
     }
