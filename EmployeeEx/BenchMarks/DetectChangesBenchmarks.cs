@@ -1,6 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using EFDataAccessLibrary.DataAccess;
 using EFDataAccessLibrary.Models;
+using EFDataAccessLibrary.Models.EmployeeFolder;
 using System.Linq;
 
 namespace EmployeeEx.BenchMarks {
@@ -11,7 +12,7 @@ namespace EmployeeEx.BenchMarks {
         [Benchmark]
         
         public void WithAutoDetect() {
-            using (var _db = new BlankContext()) {
+            using (var _db = new EmployeeContext()) {
                 for (int i = 0; i < 10000; i++) {
                     Employee employee = new Employee() { 
                         FName = "A",
@@ -26,7 +27,7 @@ namespace EmployeeEx.BenchMarks {
 
         [Benchmark]
         public void WithoutAutoDetect() {
-            using (var _db = new BlankContext()) {
+            using (var _db = new EmployeeContext()) {
                 _db.ChangeTracker.AutoDetectChangesEnabled = false;
 
                 for (int i = 0; i < 10000; i++) {

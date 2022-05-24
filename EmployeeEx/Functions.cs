@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using EFDataAccessLibrary.DataAccess;
-using EFDataAccessLibrary.Models;
+using EFDataAccessLibrary.Models.EmployeeFolder;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 namespace EmployeeEx {
     public class Functions {
 
-        public BlankContext _db { get; set; }
-        public Functions(BlankContext _db) {
+        public EmployeeContext _db { get; set; }
+        public Functions(EmployeeContext _db) {
             this._db = _db;
         }
 

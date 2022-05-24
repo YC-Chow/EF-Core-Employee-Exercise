@@ -2,7 +2,7 @@
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Diagnosers;
 using EFDataAccessLibrary.DataAccess;
-using EFDataAccessLibrary.Models;
+using EFDataAccessLibrary.Models.EmployeeFolder;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -17,7 +17,7 @@ namespace EmployeeEx.BenchMarks
         //[Benchmark]
 
         //public void EFCoreUpdateRangeVer() {
-        //    using (BlankContext _db = new BlankContext()) {
+        //    using (EmployeeContext _db = new EmployeeContext()) {
         //        _db.Set<Employee>()
         //        .Where(employee => employee.Id > 4000)
         //        .Take(100000)
@@ -32,7 +32,7 @@ namespace EmployeeEx.BenchMarks
         //[Benchmark]
 
         //public void UsualUpdateRangeVer() {
-        //    using (BlankContext _db = new BlankContext()) {
+        //    using (EmployeeContext _db = new EmployeeContext()) {
         //        var employeeList = _db.Set<Employee>()
         //        .Where(employee => employee.Id > 4000)
         //        .Take(100000)
@@ -51,7 +51,7 @@ namespace EmployeeEx.BenchMarks
         [Benchmark]
 
         public void EFCoreUpdateNameVer() {
-            using (BlankContext _db = new BlankContext()) {
+            using (EmployeeContext _db = new EmployeeContext()) {
                 //string currentName;
                 string changeName;
 
@@ -83,7 +83,7 @@ namespace EmployeeEx.BenchMarks
         [Benchmark]
 
         public void UsualUpdateNameVer() {
-            using (BlankContext _db = new BlankContext()) {
+            using (EmployeeContext _db = new EmployeeContext()) {
 
                 string currentName;
                 string changeName;
@@ -119,7 +119,7 @@ namespace EmployeeEx.BenchMarks
         [Benchmark]
 
         public void AttachUpdate() {
-            using (BlankContext _db = new BlankContext()) {
+            using (EmployeeContext _db = new EmployeeContext()) {
 
                 string changeName;
 

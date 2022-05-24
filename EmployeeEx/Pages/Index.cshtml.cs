@@ -17,22 +17,24 @@ using AutoMapper;
 using EmployeeEx.Models;
 using EmployeeEx.BenchMarks;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using EFDataAccessLibrary.Models.EmployeeFolder;
 
 namespace EmployeeEx.Pages {
     public class IndexModel : PageModel {
         private readonly ILogger<IndexModel> _logger;
-        private readonly BlankContext _db;
+        private readonly EmployeeContext _db;
         private readonly Functions functions;
         private readonly MapperConfiguration config;
-        public IndexModel(ILogger<IndexModel> logger, BlankContext db) {
+        public IndexModel(ILogger<IndexModel> logger, EmployeeContext db) {
             _logger = logger;
             _db = db;
-            //functions = new Functions(_db);
+            functions = new Functions(_db);
             //config = new MapperConfiguration(cfg => {
             //    cfg.CreateMap<Person, Customer>()
             //            .ForMember(dest => dest.FName, act => act.MapFrom(src => src.FirstName))
             //            .ForMember(dest => dest.MName, act => act.MapFrom(src => src.MiddleName))
-            //            .ForMember(dest => dest.LName, act => act.MapFrom(src => src.LastName));
+            //            .ForMember(dest => dest.LName, act => act.MapFrom(src => src.LastName));        
+            //});
 
             //    cfg.CreateMap<Customer, Person>()
             //            .ForMember(dest => dest.FirstName, act => act.MapFrom(src => src.FName))
@@ -80,14 +82,15 @@ namespace EmployeeEx.Pages {
             //BenchmarkRunner.Run<OrderBenchmarks>();
             //BenchmarkRunner.Run<FillFactorBenchmark>();
             //BenchmarkRunner.Run<ContextLoopingBenchmarks>();
-            //BenchmarkRunner.Run<SplitQueryBenchmarks>();
+            BenchmarkRunner.Run<SplitQueryBenchmarks>();
             //BenchmarkRunner.Run<PoolingBenchMarks>();
 
             //SimpleMappingExercise();
 
+            
         }
 
-        private void SpamEmployeeAddRangeVer() {
+            private void SpamEmployeeAddRangeVer() {
             //_db.ChangeTracker.AutoDetectChangesEnabled = false;
             List<Employee> employeeList = new List<Employee>();
 
@@ -209,7 +212,7 @@ namespace EmployeeEx.Pages {
                 Id = 1,
                 FirstName = "Jimmy",
                 MiddleName = "Gameo",
-                LastName = "Lolson",
+                LastName = "Deadman",
                 BankNo = "12134567890123456",
                 IsEmployed = false
             };

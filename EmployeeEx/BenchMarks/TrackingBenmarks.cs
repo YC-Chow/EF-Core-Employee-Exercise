@@ -12,7 +12,7 @@ namespace EmployeeEx.BenchMarks
     {
         [Benchmark]
         public void With_Tracking() {
-            using (var _db = new BlankContext()) {
+            using (var _db = new EmployeeContext()) {
                 var employeeList = _db.Employee
                 .ToList();
             }
@@ -20,7 +20,7 @@ namespace EmployeeEx.BenchMarks
 
         [Benchmark]
         public void No_Tracking() {
-            using (var _db = new BlankContext()) {
+            using (var _db = new EmployeeContext()) {
                 var employeeList = _db.Employee
                 .AsNoTracking()
                 .ToList();
@@ -29,7 +29,7 @@ namespace EmployeeEx.BenchMarks
 
         //[Benchmark]
         //public void GetEmployeeByNameTrackingNameVer() {
-        //    using (var _db = new BlankContext()) {
+        //    using (var _db = new EmployeeContext()) {
         //        var employeeList = _db.Employee
         //        .Where(a => a.FName.Equals("AA"))
         //        .ToList();
@@ -38,7 +38,7 @@ namespace EmployeeEx.BenchMarks
 
         //[Benchmark]
         //public void GetEmployeeByNameNoTrackingNameVer() {
-        //    using (var _db = new BlankContext()) {
+        //    using (var _db = new EmployeeContext()) {
         //        var employeeList = _db.Employee
         //        .Where(a => a.FName.Equals("AA"))
         //        .AsNoTracking()

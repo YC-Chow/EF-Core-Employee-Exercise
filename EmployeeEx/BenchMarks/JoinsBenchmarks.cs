@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using EFDataAccessLibrary.DataAccess;
-using EFDataAccessLibrary.Models;
+using EFDataAccessLibrary.Models.EmployeeFolder;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -13,7 +13,7 @@ namespace EmployeeEx.BenchMarks
 
         [Benchmark]
         public void GetEmployeeByZipCodeLeftJoinVer() {
-            using (var _db = new BlankContext()) {
+            using (var _db = new EmployeeContext()) {
                 var employeeList = _db.Employee
                 .Include(a => a.Addresses)
                 .Where(p => p.Addresses.Any(a => a.ZipCode == 401916))
@@ -23,7 +23,7 @@ namespace EmployeeEx.BenchMarks
 
         [Benchmark]
         public void GetEmployeeByZipCodeInnerJoinVer() {
-            using (var _db = new BlankContext()) {
+            using (var _db = new EmployeeContext()) {
                 var employeeList = _db.Employee
                 .Join(_db.EmployeeAddress, 
                 employee => employee.Id, 

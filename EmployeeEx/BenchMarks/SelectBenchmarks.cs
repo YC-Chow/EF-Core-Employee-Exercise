@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using EFDataAccessLibrary.DataAccess;
-using EFDataAccessLibrary.Models;
+using EFDataAccessLibrary.Models.EmployeeFolder;
 using System.Linq;
 
 namespace EmployeeEx.BenchMarks {
@@ -10,14 +10,14 @@ namespace EmployeeEx.BenchMarks {
     public class SelectBenchmarks {
         [Benchmark]
         public void All_Column() {
-            using (var _db = new BlankContext()) {
+            using (var _db = new EmployeeContext()) {
                 var employees = _db.Employee.ToList();
             }
         }
 
         [Benchmark]
         public void Select_Column() {
-            using (var _db = new BlankContext()) {
+            using (var _db = new EmployeeContext()) {
                 var employees = _db.Employee.Select(employee => new Employee() {
                     Id = employee.Id,
                     FName = employee.FName
