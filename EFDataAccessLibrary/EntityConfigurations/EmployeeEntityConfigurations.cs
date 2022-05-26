@@ -21,8 +21,6 @@ namespace EFDataAccessLibrary.EntityConfigurations {
                 .HasColumnType("varchar(100)")
                 .IsRequired();
 
-            builder.Property(p => p.CompanyId)
-                .IsRequired(false);
         }
     }
 }

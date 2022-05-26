@@ -48,6 +48,13 @@ namespace EmployeeEx.Pages {
         public void OnGet() {
             //LoadSampleData();
             //SpamEmployee();
+            //LoadCompany();
+            LoadSampleData100000RowsVer();
+            LoadSampleData100000RowsVer();
+            LoadSampleData();
+            LoadSampleData();
+            LoadSampleData();
+            LoadSampleData();
 
             //functions.ChangeExistingRowWithAttach();
             //functions.GetEmployeeByZipCode(401916);
@@ -190,6 +197,13 @@ namespace EmployeeEx.Pages {
             }
         }
 
+        //private void LoadCompany() {
+        //    if (_db.Company.Count() == 0) {
+        //        string file = System.IO.File.ReadAllText("company.json");
+        //        var company = JsonSerializer.Deserialize<List<Company>>(file);
+        //        _db.BulkInsert(company);
+        //    }
+        //}
         //private void LoadBigData() {
         //    if (_db.BigData.Count() != 0) {
         //        string file = System.IO.File.ReadAllText("generated2000.json");
@@ -232,16 +246,16 @@ namespace EmployeeEx.Pages {
             }
         }
 
-        private async Task<List<Employee>> GetEmployeeListAsync() {
-            using (var _db = new EmployeeContext()) {
-                IQueryable<Employee> query = _db.Employee.Where(emp => emp.FName.Equals("Fox"));
+        //private async Task<List<Employee>> GetEmployeeListAsync() {
+        //    using (var _db = new EmployeeContext()) {
+        //        IQueryable<Employee> query = _db.Employee.Where(emp => emp.FName.Equals("Fox"));
 
-                Console.WriteLine("Loading");
-                query.Include(emp => emp.Addresses);
-                query.Include(emp => emp.Company);
+        //        Console.WriteLine("Loading");
+        //        query.Include(emp => emp.Addresses);
+        //        query.Include(emp => emp.Company);
 
-                return await query.ToListAsync();
-            }
-        }
+        //        return await query.ToListAsync();
+        //    }
+        //}
     }
 }
