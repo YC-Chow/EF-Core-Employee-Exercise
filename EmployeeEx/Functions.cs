@@ -222,6 +222,20 @@ namespace EmployeeEx {
                     LName = "AC"
                 });
         }
+
+        private void UpdateWithNoTracking() {
+            var employee = _db.Employee
+                                .AsNoTracking()
+                                .First(emp => emp.FName.Equals("Fox"));
+
+            employee.FName = "UniqueNameOnEarth";
+            _db.SaveChanges();
+
+            int count = _db.Employee.Where(emp => emp.FName.Equals("UniqueNameOnEarth")).Count();
+
+            Console.WriteLine("Number of Employee: " + count.ToString());
+        }
+
         //----------------------------------------------------------------------------------
         //Delete Queries
 
