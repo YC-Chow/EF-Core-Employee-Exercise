@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using EFDataAccessLibrary.Models.CompanyFolder;
 
 namespace EFDataAccessLibrary.Models.EmployeeFolder {
     public class Employee {
@@ -13,6 +14,8 @@ namespace EFDataAccessLibrary.Models.EmployeeFolder {
         public string MName { get; set; }
         public string LName { get; set; }
         public virtual List<EmployeeAddress> Addresses { get; set; }
+        public int? CompanyId { get; set; }
+        public virtual Company? Company { get; set; }
 
     }
 }

@@ -20,6 +20,9 @@ namespace EFDataAccessLibrary.EntityConfigurations {
             builder.Property(p => p.LName)
                 .HasColumnType("varchar(100)")
                 .IsRequired();
+
+            builder.Property(p => p.CompanyId)
+                .IsRequired(false);
         }
     }
 }
