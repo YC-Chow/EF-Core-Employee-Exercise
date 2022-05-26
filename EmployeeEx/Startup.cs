@@ -24,6 +24,7 @@ namespace EmployeeEx {
             services.AddDbContext<EmployeeContext>(options => {
                 options
                 .UseSqlServer(Configuration.GetConnectionString("default"));
+                //.UseLazyLoadingProxies();
             });
 
             //services.AddDbContextPool<PoolContext>(options => {
