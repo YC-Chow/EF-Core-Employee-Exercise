@@ -19,6 +19,7 @@ using EmployeeEx.BenchMarks;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using EFDataAccessLibrary.Models.EmployeeFolder;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using EFDataAccessLibrary.Models.CompanyFolder;
 
 namespace EmployeeEx.Pages {
     public class IndexModel : PageModel {
@@ -66,7 +67,7 @@ namespace EmployeeEx.Pages {
             //functions.AttachUpdate();
             //functions.EFCoreUpdate();
 
-            //BenchmarkRunner.Run<UpdatingBenchmarks>();
+            // BenchmarkRunner.Run<UpdatingBenchmarks>();
             //BenchmarkRunner.Run<JoinsBenchmarks>();
             //BenchmarkRunner.Run<TrackingBenmarks>();
             //BenchmarkRunner.Run<DeleteBenchmarks>();
@@ -78,15 +79,13 @@ namespace EmployeeEx.Pages {
             //BenchmarkRunner.Run<ContextLoopingBenchmarks>();
             //BenchmarkRunner.Run<SplitQueryBenchmarks>();
             //BenchmarkRunner.Run<PoolingBenchMarks>();
+            //BenchmarkRunner.Run<SingleUpdateBenchmarks>();
 
             //AccessChangeTrackerPropValues();
 
-            //SimpleMappingExercise();
-
-
         }
 
-            private void SpamEmployeeAddRangeVer() {
+        private void SpamEmployeeAddRangeVer() {
             //_db.ChangeTracker.AutoDetectChangesEnabled = false;
             List<Employee> employeeList = new List<Employee>();
 
@@ -116,7 +115,7 @@ namespace EmployeeEx.Pages {
 
             _db.ChangeTracker.AutoDetectChangesEnabled = false;
 
-            for (int i = 0; i < 100000; i++) {
+            for (int i = 0; i < 90000; i++) {
                 Employee employee = new Employee();
                 employee.FName = "A";
                 employee.MName = "A";
@@ -172,17 +171,15 @@ namespace EmployeeEx.Pages {
 
 
         private void LoadSampleData() {
-            if (_db.Employee.Count() == 0) {
-                string file = System.IO.File.ReadAllText("generated.json");
-                var employee = JsonSerializer.Deserialize<List<Employee>>(file);
-                _db.Employee.AddRange(employee);
-                _db.SaveChanges();
-            }
+            string file = System.IO.File.ReadAllText("generated.json");
+            var employee = JsonSerializer.Deserialize<List<Employee>>(file);
+            _db.Employee.AddRange(employee);
+            _db.SaveChanges();
         }
 
         private void LoadSampleData100000RowsVer() {
             for (int i = 0; i < 100; i++) {
-                LoadSampleDataWOAutoDetect();
+                LoadSampleData();
             }
         }
         private void LoadSampleDataBulkVer() {
@@ -235,5 +232,16 @@ namespace EmployeeEx.Pages {
             }
         }
 
+        private async Task<List<Employee>> GetEmployeeListAsync() {
+            using (var _db = new EmployeeContext()) {
+                IQueryable<Employee> query = _db.Employee.Where(emp => emp.FName.Equals("Fox"));
+
+                Console.WriteLine("Loading");
+                query.Include(emp => emp.Addresses);
+                query.Include(emp => emp.Company);
+
+                return await query.ToListAsync();
+            }
+        }
     }
 }
