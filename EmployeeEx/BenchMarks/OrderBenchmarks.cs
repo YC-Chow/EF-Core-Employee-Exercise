@@ -8,11 +8,22 @@ namespace EmployeeEx.BenchMarks {
     [MinIterationCount(100)]
     [MaxIterationCount(200)]
     public class OrderBenchmarks {
+
         [Benchmark]
-        public void Sorting_Application_Layer() {
+        public void Sort_In_DB() {
             using (var _db = new EmployeeContext()) {
                 var employeeList = _db.Employee
-                    .Where(employee => employee.Id < 100000)
+                .Where(employee => employee.Id < 150000)
+                .OrderByDescending(employee => employee.Id)
+                .ToList();
+            }
+        }
+
+        [Benchmark]
+        public void Sort_In_App() {
+            using (var _db = new EmployeeContext()) {
+                var employeeList = _db.Employee
+                    .Where(employee => employee.Id < 150000)
                     .ToList();
 
                 employeeList.Sort(new EmployeeComparer());
@@ -20,14 +31,6 @@ namespace EmployeeEx.BenchMarks {
             }
         }
 
-        [Benchmark]
-        public void OrderBy() {
-            using (var _db = new EmployeeContext()) {
-                var employeeList = _db.Employee
-                .Where(employee => employee.Id < 100000)
-                .OrderByDescending(employee => employee.Id)
-                .ToList();
-            }
-        }
+        
     }
 }

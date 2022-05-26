@@ -41,18 +41,11 @@ namespace EmployeeEx.BenchMarks {
                 address => address.EmployeeId,
                 (employee, address) => new {
                     Id = employee.Id,
-                    FName = employee.FName,
-                    MName = employee.MName,
-                    LName = employee.LName,
-                    AddressId = address.Id,
-                    Address1 = address.Address1,
-                    Address2 = address.Address2,
-                    Address3 = address.Address3,
-                    ZipCode = address.ZipCode,
-                    EmployeeId = address.EmployeeId
-                })
-                .AsSplitQuery()
-                .ToList();
+                    FName = employee.FName,MName = employee.MName,LName = employee.LName,
+                    AddressId = address.Id,Address1 = address.Address1,
+                    Address2 = address.Address2,Address3 = address.Address3,
+                    ZipCode = address.ZipCode,EmployeeId = address.EmployeeId
+                }).AsSplitQuery().ToList();
             }
         }
 
@@ -65,17 +58,11 @@ namespace EmployeeEx.BenchMarks {
                 address => address.EmployeeId,
                 (employee, address) => new {
                     Id = employee.Id,
-                    FName = employee.FName,
-                    MName = employee.MName,
-                    LName = employee.LName,
-                    AddressId = address.Id,
-                    Address1 = address.Address1,
-                    Address2 = address.Address2,
-                    Address3 = address.Address3,
-                    ZipCode = address.ZipCode,
-                    EmployeeId = address.EmployeeId
-                })
-                .ToList();
+                    FName = employee.FName, MName = employee.MName,LName = employee.LName,
+                    AddressId = address.Id, Address1 = address.Address1,
+                    Address2 = address.Address2, Address3 = address.Address3,
+                    ZipCode = address.ZipCode,EmployeeId = address.EmployeeId
+                }).AsSingleQuery().ToList();
             }
         }
 

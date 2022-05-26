@@ -50,27 +50,27 @@ namespace EmployeeEx.BenchMarks
 
         [Benchmark]
 
-        public void EFCoreUpdateNameVer() {
+        public void EFCoreUpdate() {
             using (EmployeeContext _db = new EmployeeContext()) {
-                //string currentName;
+                string currentName;
                 string changeName;
 
                 if (_db.Employee.Where(employee => employee.FName == "A").Count() > 0) {
-                   // currentName = "A";
-                    changeName = "B";
+                   currentName = "A";
+                   changeName = "B";
                 }
                 else if (_db.Employee.Where(employee => employee.FName == "B").Count() > 0) { 
-                    //currentName="B";
+                    currentName="B";
                     changeName = "C";
                 }
                 else {
-                   // currentName = "C";
-                    changeName= "A";
+                   currentName = "C";
+                   changeName= "A";
                 }
 
                 _db.Set<Employee>()
-                .Where(employee => employee.Id > 104000 && employee.Id < 204001)
-                .Take(100000)
+                .Where(employee => employee.FName.Equals(currentName))
+                .Where(employee => employee.Id >= 204000 && employee.Id <= 213999)
                 .UpdateFromQuery(employee => new Employee() {
                     FName = changeName,
                     MName = changeName,
@@ -82,7 +82,7 @@ namespace EmployeeEx.BenchMarks
 
         [Benchmark]
 
-        public void UsualUpdateNameVer() {
+        public void UsualUpdate() {
             using (EmployeeContext _db = new EmployeeContext()) {
 
                 string currentName;
@@ -101,9 +101,9 @@ namespace EmployeeEx.BenchMarks
                     changeName = "A";
                 }
 
-                var employeeList = _db.Set<Employee>()
-                .Where(employee => employee.FName == currentName)
-                .Take(100000)
+                var employeeList = _db.Employee
+                .Where(employee => employee.FName.Equals(currentName))
+                //.Where(employee => employee.Id >= 204000 && employee.Id <= 213999)
                 .ToList();
 
                 foreach (var employee in employeeList) {
@@ -133,7 +133,7 @@ namespace EmployeeEx.BenchMarks
                     changeName = "A";
                 }
 
-                for (int i = 104001; i < 204001; i++) {
+                for (int i = 204000; i <= 303999; i++) {
                     var employee = new Employee() {
                         Id = i,
                         FName = changeName,
@@ -142,7 +142,7 @@ namespace EmployeeEx.BenchMarks
                     };
 
                     _db.Attach(employee);
-                    _db.Entry(employee).Property(p => p.FName).IsModified = true;
+                    _db.Entry(employee).State = EntityState.Modified;
                 }
                 _db.SaveChanges();
             }

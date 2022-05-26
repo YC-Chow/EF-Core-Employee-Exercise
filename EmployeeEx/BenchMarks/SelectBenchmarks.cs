@@ -13,13 +13,32 @@ namespace EmployeeEx.BenchMarks {
         public void All_Column() {
             using (var _db = new EmployeeContext()) {
                 var employees = _db.Employee
-                                .AsNoTracking()
                                 .ToList();
             }
         }
 
         [Benchmark]
         public void Select_Column() {
+            using (var _db = new EmployeeContext()) {
+                var employees = _db.Employee.Select(employee => new Employee() {
+                    Id = employee.Id,
+                    FName = employee.FName
+                })
+            .ToList();
+            }
+        }
+
+        [Benchmark]
+        public void All_Column_No_Tracking() {
+            using (var _db = new EmployeeContext()) {
+                var employees = _db.Employee
+                                .AsNoTracking()
+                                .ToList();
+            }
+        }
+
+        [Benchmark]
+        public void Select_Column_No_Tracking() {
             using (var _db = new EmployeeContext()) {
                 var employees = _db.Employee.Select(employee => new Employee() {
                     Id = employee.Id,
