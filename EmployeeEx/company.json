@@ -1,0 +1,32 @@
+[
+  {
+    "CompanyName": "Ramjob",
+    "CompanyAddress": "Marshall Islands Sunwest Cedar Street",
+    "CompanyZipCode": 112532,
+    "NumberOfEmployees": 2000914278
+  },
+  {
+    "CompanyName": "Synkgen",
+    "CompanyAddress": "North Carolina Gulf Clark Street",
+    "CompanyZipCode": 387526,
+    "NumberOfEmployees": 347539620
+  },
+  {
+    "CompanyName": "Sensate",
+    "CompanyAddress": "Tennessee Loveland Reeve Place",
+    "CompanyZipCode": 612603,
+    "NumberOfEmployees": 1455097880
+  },
+  {
+    "CompanyName": "Geekola",
+    "CompanyAddress": "Nebraska Baker Bryant Street",
+    "CompanyZipCode": 271748,
+    "NumberOfEmployees": 891746434
+  },
+  {
+    "CompanyName": "Immunics",
+    "CompanyAddress": "Nevada Cressey Brevoort Place",
+    "CompanyZipCode": 82195,
+    "NumberOfEmployees": 1318676706
+  }
+]
