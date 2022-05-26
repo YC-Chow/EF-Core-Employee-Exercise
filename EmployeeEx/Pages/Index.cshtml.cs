@@ -49,12 +49,6 @@ namespace EmployeeEx.Pages {
             //LoadSampleData();
             //SpamEmployee();
             //LoadCompany();
-            LoadSampleData100000RowsVer();
-            LoadSampleData100000RowsVer();
-            LoadSampleData();
-            LoadSampleData();
-            LoadSampleData();
-            LoadSampleData();
 
             //functions.ChangeExistingRowWithAttach();
             //functions.GetEmployeeByZipCode(401916);
@@ -74,7 +68,7 @@ namespace EmployeeEx.Pages {
             //functions.AttachUpdate();
             //functions.EFCoreUpdate();
 
-            // BenchmarkRunner.Run<UpdatingBenchmarks>();
+            //BenchmarkRunner.Run<UpdatingBenchmarks>();
             //BenchmarkRunner.Run<JoinsBenchmarks>();
             //BenchmarkRunner.Run<TrackingBenmarks>();
             //BenchmarkRunner.Run<DeleteBenchmarks>();
@@ -88,8 +82,11 @@ namespace EmployeeEx.Pages {
             //BenchmarkRunner.Run<PoolingBenchMarks>();
             //BenchmarkRunner.Run<SingleUpdateBenchmarks>();
 
-            //AccessChangeTrackerPropValues();
+            //Employee employee = _db.Employee.FirstOrDefault(b => b.Id == 1);
+            //List<EmployeeAddress> empaddr = employee.Addresses;
+            //Console.WriteLine(employee.Addresses.First().Address1);
 
+            //AccessChangeTrackerPropValues();
         }
 
         private void SpamEmployeeAddRangeVer() {
