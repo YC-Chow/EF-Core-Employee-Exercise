@@ -14,8 +14,6 @@ namespace EFDataAccessLibrary.Models.EmployeeFolder {
         public string MName { get; set; }
         public string LName { get; set; }
         public virtual List<EmployeeAddress> Addresses { get; set; }
-        public int? CompanyId { get; set; }
-        public virtual Company? Company { get; set; }
 
     }
 }
