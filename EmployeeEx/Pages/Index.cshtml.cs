@@ -31,6 +31,12 @@ namespace EmployeeEx.Pages {
             _logger = logger;
             _db = db;
             functions = new Functions(_db);
+
+
+            //===============================================================================
+            /*The config below is for automapper
+            AutoMapper configuration can also be seperated out to individual classes*/
+
             //config = new MapperConfiguration(cfg => {
             //    cfg.CreateMap<Person, Customer>()
             //            .ForMember(dest => dest.FName, act => act.MapFrom(src => src.FirstName))
@@ -38,17 +44,35 @@ namespace EmployeeEx.Pages {
             //            .ForMember(dest => dest.LName, act => act.MapFrom(src => src.LastName));        
             //});
 
-            //    cfg.CreateMap<Customer, Person>()
-            //            .ForMember(dest => dest.FirstName, act => act.MapFrom(src => src.FName))
-            //            .ForMember(dest => dest.MiddleName, act => act.MapFrom(src => src.MName))
-            //            .ForMember(dest => dest.LastName, act => act.MapFrom(src => src.LName));
-            //});
+                //    cfg.CreateMap<Customer, Person>()
+                //            .ForMember(dest => dest.FirstName, act => act.MapFrom(src => src.FName))
+                //            .ForMember(dest => dest.MiddleName, act => act.MapFrom(src => src.MName))
+                //            .ForMember(dest => dest.LastName, act => act.MapFrom(src => src.LName));
+                //});
+                //===============================================================================
         }
 
         public void OnGet() {
+
+            /*
+             Most CRUD queries can be found in functions class, 
+            which is in the root folder of EmployeeEx
+
+            Name of methods pretty much describe what it does
+             */
+            
+
+            /*
+             LoadSampleData() will load 1000 employees with addresses
+            LoadSampleData() does not have any checks if there is data in database
+            There is also a LoadSampleData100000Ver() which  is loads the same json file 100 times
+            LoadCompany() not used, Company class got removed
+
+            To run benchmark, BenchmarkRunner.Run<BenchmarkClass>();
+             */
+
             //LoadSampleData();
             //SpamEmployee();
-            //LoadCompany();
 
             //functions.ChangeExistingRowWithAttach();
             //functions.GetEmployeeByZipCode(401916);
@@ -81,10 +105,6 @@ namespace EmployeeEx.Pages {
             //BenchmarkRunner.Run<SplitQueryBenchmarks>();
             //BenchmarkRunner.Run<PoolingBenchMarks>();
             //BenchmarkRunner.Run<SingleUpdateBenchmarks>();
-
-            //Employee employee = _db.Employee.FirstOrDefault(b => b.Id == 1);
-            //List<EmployeeAddress> empaddr = employee.Addresses;
-            //Console.WriteLine(employee.Addresses.First().Address1);
 
             //AccessChangeTrackerPropValues();
         }
