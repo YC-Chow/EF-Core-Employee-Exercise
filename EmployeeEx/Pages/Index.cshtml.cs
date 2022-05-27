@@ -49,10 +49,18 @@ namespace EmployeeEx.Pages {
                 //            .ForMember(dest => dest.MiddleName, act => act.MapFrom(src => src.MName))
                 //            .ForMember(dest => dest.LastName, act => act.MapFrom(src => src.LName));
                 //});
-                //===============================================================================
+            //===============================================================================
         }
 
         public void OnGet() {
+            /*
+            BigDataContext, BlankContext, CountryContext and PoolContext
+            temporarily put off
+
+            Customer and Person classes are used for AutoMapper
+             */
+
+
 
             /*
              Most CRUD queries can be found in functions class, 
