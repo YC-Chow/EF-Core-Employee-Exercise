@@ -9,6 +9,10 @@ namespace EmployeeEx.BenchMarks {
     [MaxIterationCount(200)]
     public class OrderBenchmarks {
 
+        //Benchmark for having OrderBy in Queries
+        //To do sorting in App layer
+
+
         [Benchmark]
         public void Sort_In_DB() {
             using (var _db = new EmployeeContext()) {

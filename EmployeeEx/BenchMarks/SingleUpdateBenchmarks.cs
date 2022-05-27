@@ -11,6 +11,8 @@ namespace EmployeeEx.BenchMarks
     [MaxIterationCount(200)]
     public class SingleUpdateBenchmarks
     {
+        //Benchmark for updating 1 entity with its child entity
+
         [Benchmark]
 
         public void EFCoreUpdate() {

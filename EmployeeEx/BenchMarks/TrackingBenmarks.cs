@@ -10,6 +10,8 @@ namespace EmployeeEx.BenchMarks
     [MaxIterationCount(200)]
     public class TrackingBenmarks
     {
+        //Benchmark for object tracking
+
         [Benchmark]
         public void With_Tracking() {
             using (var _db = new EmployeeContext()) {

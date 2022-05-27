@@ -12,6 +12,8 @@ namespace EmployeeEx.BenchMarks {
     [MinIterationCount(10)]
     public class SplitQueryBenchmarks {
 
+        //Benchmark for Split Queries
+
         [Benchmark]
         public void NoSplit() {
             using (var _db = new EmployeeContext()) {

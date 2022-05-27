@@ -8,6 +8,10 @@ namespace EmployeeEx.BenchMarks {
     [MemoryDiagnoser]
     public class PoolingBenchMarks {
 
+        //Benchmark for using Context Pooling vs normal Context creation and disposal
+        //Temporaily put off 
+        //Unconvincing results 
+
         //private readonly PooledDbContextFactory<PoolContext> factory;
 
         public PoolingBenchMarks() {

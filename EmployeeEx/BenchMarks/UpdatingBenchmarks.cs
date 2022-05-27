@@ -14,40 +14,7 @@ namespace EmployeeEx.BenchMarks
     [MinIterationCount(100)]
     public class UpdatingBenchmarks
     {
-
-        //[Benchmark]
-
-        //public void EFCoreUpdateRangeVer() {
-        //    using (EmployeeContext _db = new EmployeeContext()) {
-        //        _db.Set<Employee>()
-        //        .Where(employee => employee.Id > 4000)
-        //        .Take(100000)
-        //        .UpdateFromQuery(employee => new Employee() {
-        //            FName = "AB",
-        //            MName = "AB",
-        //            LName = "AB"
-        //        });
-        //    }
-        //}
-
-        //[Benchmark]
-
-        //public void UsualUpdateRangeVer() {
-        //    using (EmployeeContext _db = new EmployeeContext()) {
-        //        var employeeList = _db.Set<Employee>()
-        //        .Where(employee => employee.Id > 4000)
-        //        .Take(100000)
-        //        .ToList();
-
-        //        foreach (var employee in employeeList) {
-        //            employee.FName = "AA";
-        //            employee.MName = "AA";
-        //            employee.LName = "AA";
-        //        }
-
-        //        _db.SaveChanges();
-        //    }
-        //}
+        //Benchmark for updating multiple entites with child entity
 
         [Benchmark]
 
@@ -110,7 +77,7 @@ namespace EmployeeEx.BenchMarks
 
                 var employeeList = _db.Employee
                 //.Where(employee => employee.FName.Equals(currentName))
-                .Where(employee => employee.Id >= 204001 && employee.Id <= 214000)
+                .Where(employee => employee.FName.Equals(currentName))
                 .Include(employee => employee.Addresses)
                 .ToList();
 

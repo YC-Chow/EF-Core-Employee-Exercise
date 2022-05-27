@@ -11,6 +11,8 @@ namespace EmployeeEx.BenchMarks {
     [MinIterationCount(10)]
     public class ContextLoopingBenchmarks {
        
+        //Benchmark for putting data retrieval in loops
+
         [Benchmark]
         public void NoLoopVer() {
             using (var _db = new EmployeeContext()) {

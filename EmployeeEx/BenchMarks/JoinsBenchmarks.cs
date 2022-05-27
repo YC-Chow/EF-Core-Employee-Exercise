@@ -11,6 +11,11 @@ namespace EmployeeEx.BenchMarks
     [MemoryDiagnoser]
     public class JoinsBenchmarks {
 
+        //Benchmark for using .Include VS .Join
+        //.Include generate left join for one-to-many or optional relationship
+        //.Join generate inner join
+        // What is benchmark is basically inner join vs left join
+
         [Benchmark]
         public void GetEmployeeByZipCodeLeftJoinVer() {
             using (var _db = new EmployeeContext()) {

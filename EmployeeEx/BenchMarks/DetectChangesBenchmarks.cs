@@ -9,8 +9,10 @@ namespace EmployeeEx.BenchMarks {
     [MinIterationCount(10)]
     [MaxIterationCount(20)]
     public class DetectChangesBenchmarks {
+
+        //Benchmark for adding entities with and without auto detect changes
+
         [Benchmark]
-        
         public void WithAutoDetect() {
             using (var _db = new EmployeeContext()) {
                 for (int i = 0; i < 10000; i++) {

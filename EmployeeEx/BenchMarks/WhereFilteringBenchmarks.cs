@@ -9,6 +9,8 @@ namespace EmployeeEx.BenchMarks {
     [MinIterationCount(100)]
     public class WhereFilteringBenchmarks {
 
+        //Benchmark having Where clause after vs before to list
+
         [Benchmark]
         public void Where_Is_After_ToList() {
             using (var _db = new EmployeeContext()) {

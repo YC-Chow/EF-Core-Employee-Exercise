@@ -9,6 +9,11 @@ namespace EmployeeEx.BenchMarks {
     [MaxIterationCount(200)]
     [MinIterationCount(100)]
     public class SelectBenchmarks {
+
+        //Benchmark for having .Select in query
+        //Retrieving only specified columns
+        //No Tracking + Select added on Santy request
+
         [Benchmark]
         public void All_Column() {
             using (var _db = new EmployeeContext()) {
