@@ -6,8 +6,8 @@ using System.Linq;
 
 namespace EmployeeEx.BenchMarks {
     [MemoryDiagnoser]
-    [MinIterationCount(10)]
-    [MaxIterationCount(20)]
+    [MinIterationCount(100)]
+    [MaxIterationCount(200)]
     public class DetectChangesBenchmarks {
 
         //Benchmark for adding entities with and without auto detect changes

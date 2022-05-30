@@ -6,8 +6,8 @@ using System.Linq;
 
 namespace EmployeeEx.BenchMarks
 {
-    [MinIterationCount(10)]
-    [MaxIterationCount(20)]
+    [MinIterationCount(100)]
+    [MaxIterationCount(200)]
     [MemoryDiagnoser]
     public class JoinsBenchmarks {
 
@@ -17,7 +17,7 @@ namespace EmployeeEx.BenchMarks
         // What is benchmark is basically inner join vs left join
 
         [Benchmark]
-        public void GetEmployeeByZipCodeLeftJoinVer() {
+        public void Include() {
             using (var _db = new EmployeeContext()) {
                 var employeeList = _db.Employee
                 .Include(a => a.Addresses)
@@ -27,7 +27,7 @@ namespace EmployeeEx.BenchMarks
         }
 
         [Benchmark]
-        public void GetEmployeeByZipCodeInnerJoinVer() {
+        public void JoinA() {
             using (var _db = new EmployeeContext()) {
                 var employeeList = _db.Employee
                 .Join(_db.EmployeeAddress, 
