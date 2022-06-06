@@ -68,7 +68,7 @@ namespace EmployeeEx.Pages {
 
             Name of methods pretty much describe what it does
              */
-            
+
 
             /*
              LoadSampleData() will load 1000 employees with addresses
@@ -100,6 +100,9 @@ namespace EmployeeEx.Pages {
             //functions.AttachUpdate();
             //functions.EFCoreUpdate();
 
+
+            //====================================================================
+            //========================Benchmark Codes=============================
             //BenchmarkRunner.Run<UpdatingBenchmarks>();
             //BenchmarkRunner.Run<JoinsBenchmarks>();
             //BenchmarkRunner.Run<TrackingBenmarks>();
@@ -113,8 +116,14 @@ namespace EmployeeEx.Pages {
             //BenchmarkRunner.Run<SplitQueryBenchmarks>();
             //BenchmarkRunner.Run<PoolingBenchMarks>();
             //BenchmarkRunner.Run<SingleUpdateBenchmarks>();
+            //BenchmarkRunner.Run<DetectChangesWithUpdateAndAddBenchmarks>();
+            //BenchmarkRunner.Run<SingleUpdateMasterEntityOnlyBenchmarks>();
+            //BenchmarkRunner.Run<UpdatingMasterEntityOnlyBenchmarks>();
+            //BenchmarkRunner.Run<SingleUpdateMasterEntityOnlyBenchmarks>();
+            //BenchmarkRunner.Run<ContextLoopingBenchmarks>();
+            //====================================================================
+            //AccessChangeTrackerPropValues(); 
 
-            //AccessChangeTrackerPropValues();
         }
 
         private void SpamEmployeeAddRangeVer() {
@@ -271,16 +280,15 @@ namespace EmployeeEx.Pages {
             }
         }
 
-        //private async Task<List<Employee>> GetEmployeeListAsync() {
-        //    using (var _db = new EmployeeContext()) {
-        //        IQueryable<Employee> query = _db.Employee.Where(emp => emp.FName.Equals("Fox"));
+        private async Task<List<Employee>> GetEmployeeListAsync() {
+            using (var _db = new EmployeeContext()) {
+                IQueryable<Employee> query = _db.Employee.Where(emp => emp.FName.Equals("Fox"))/*.Where(emp => emp.Addresses.Any(add => add.Address1.Equals("Florida")))*/;
 
-        //        Console.WriteLine("Loading");
-        //        query.Include(emp => emp.Addresses);
-        //        query.Include(emp => emp.Company);
+                Console.WriteLine("Loading");
+                query.Include(emp => emp.Addresses).Where(emp => emp.Addresses.Any(add => add.Address1.Equals("Florida"))).Load();
 
-        //        return await query.ToListAsync();
-        //    }
-        //}
+                return await query.ToListAsync();
+            }
+        }
     }
 }
