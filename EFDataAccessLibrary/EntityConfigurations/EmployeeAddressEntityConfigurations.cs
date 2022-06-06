@@ -23,6 +23,12 @@ namespace EFDataAccessLibrary.EntityConfigurations {
             builder.Property(p => p.ZipCode)
                 .HasColumnType("int");
 
+
+            builder.HasIndex(e => e.EmployeeId)
+                .HasDatabaseName("IX_EmployeeId")
+                .IsUnique(false)
+                .IsClustered(false)
+                .HasFillFactor(85);
         }
     }
 }
