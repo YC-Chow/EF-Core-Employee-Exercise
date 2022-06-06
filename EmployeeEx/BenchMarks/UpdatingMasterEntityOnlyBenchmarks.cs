@@ -1,19 +1,22 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Diagnosers;
 using EFDataAccessLibrary.DataAccess;
 using EFDataAccessLibrary.Models.EmployeeFolder;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EmployeeEx.BenchMarks
-{
+namespace EmployeeEx.BenchMarks {
+
+
     [MemoryDiagnoser]
-    [MinIterationCount(100)]
     [MaxIterationCount(200)]
-    public class SingleUpdateBenchmarks
-    {
-        //Benchmark for updating 1 entity with its child entity
+    [MinIterationCount(100)]
+
+    public class UpdatingMasterEntityOnlyBenchmarks {
+
+        //Benchmark for updating multiple entites
 
         [Benchmark]
 
@@ -32,18 +35,12 @@ namespace EmployeeEx.BenchMarks
                 }
 
                 _db.Employee
-                .Where(employee => employee.Id == 204001)
+                .Where(employee => employee.Id >= 204001 && employee.Id <= 214000)
                 .UpdateFromQuery(employee => new Employee() {
-                    FName = changeName,MName = changeName,
+                    FName = changeName,
+                    MName = changeName,
                     LName = changeName
                 });
-
-                _db.EmployeeAddress
-                .Where(add => add.EmployeeId == 204001)
-                .UpdateFromQuery(add => new EmployeeAddress() {
-                    Address1 = changeName,Address2 = changeName
-                });
-
             }
         }
 
@@ -64,17 +61,14 @@ namespace EmployeeEx.BenchMarks
                     changeName = "A";
                 }
 
-                var employee = _db.Set<Employee>()
-                    .Include(emp => emp.Addresses)
-                    .Where(employee => employee.Id == 204001)
-                    .Single();
+                var employeeList = _db.Employee
+                .Where(employee => employee.Id >= 204001 && employee.Id <= 214000)
+                .ToList();
 
-                employee.FName = changeName;
-                employee.MName = changeName;
-                employee.LName = changeName;
-                foreach (var address in employee.Addresses) {
-                    address.Address1 = changeName;
-                    address.Address2 = changeName;
+                foreach (var employee in employeeList) {
+                    employee.FName = changeName;
+                    employee.MName = changeName;
+                    employee.LName = changeName;
                 }
                 _db.SaveChanges();
             }
@@ -95,23 +89,18 @@ namespace EmployeeEx.BenchMarks
                     changeName = "A";
                 }
 
-                Employee employee = new Employee() {
-                    Id = 204001,
-                    FName = changeName,MName = changeName,LName = changeName,
-                    Addresses = new List<EmployeeAddress>()
-                };
+                for (int i = 204001; i <= 214000; i++) {
+                    var employee = new Employee() {
+                        Id = i,
+                        FName = changeName,
+                        MName = changeName,
+                        LName = changeName
+                    };
 
-                int[] addressIds = new int[] { 309061, 319061 };
-
-                foreach (int id in addressIds) {
-                    employee.Addresses.Add(new EmployeeAddress() {
-                        Id = id, Address1 = changeName,Address2 = changeName
-                    });
+                    _db.Attach(employee);
+                    _db.Entry(employee).State = EntityState.Modified;
                 }
-                _db.Attach(employee);
-                _db.Entry(employee).State = EntityState.Modified;
                 _db.SaveChanges();
-                
             }
         }
     }

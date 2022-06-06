@@ -26,7 +26,8 @@ namespace EmployeeEx.BenchMarks {
                 List<Employee> employeeList = new List<Employee>();
 
                 for (int i = 1; i < 100001; i++) {
-                    var employee = _db.Employee.Where(employeeX => employeeX.Id == i).AsNoTracking().Single();
+                    var employee = _db.Employee.Where(employeeX => employeeX.Id == i)
+                        .AsNoTracking().Single();
                     employeeList.Add(employee);
                 }
             }
