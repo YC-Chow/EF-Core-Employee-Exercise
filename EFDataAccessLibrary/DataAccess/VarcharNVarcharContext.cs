@@ -12,7 +12,15 @@ namespace EFDataAccessLibrary.DataAccess {
         public DbSet<VarcharName> VarcharName { get; set; }
         public DbSet<NVarcharName> NVarcharName { get; set; }
 
-        public VarcharNVarcharContext (DbContextOptions options) : base(options) { }
+        public VarcharNVarcharContext() { }
+
+        public VarcharNVarcharContext (DbContextOptions<VarcharNVarcharContext> options) : base(options) { }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder
+                .UseSqlServer(
+            "Data Source=localhost,1433;Initial Catalog = EmployeeTest ;Integrated Security=True;" +
+            "Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;" +
+            "ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.ApplyConfiguration(new VarcharNameEntityConfiguration());

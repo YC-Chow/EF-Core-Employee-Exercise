@@ -35,7 +35,7 @@ namespace EFDataAccessLibrary.EntityConfigurations {
 
             builder
                 .Property(a => a.CreatedDate)
-                .HasColumnType("DateTime2");
+                .HasColumnType("DateTime2(0)");
         }
     }
 }
