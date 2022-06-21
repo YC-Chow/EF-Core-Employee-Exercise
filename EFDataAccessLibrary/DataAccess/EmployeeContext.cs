@@ -11,7 +11,7 @@ using EFDataAccessLibrary.Models.CompanyFolder;
 namespace EFDataAccessLibrary.DataAccess {
     public class EmployeeContext : DbContext {
         public EmployeeContext() { }
-        public EmployeeContext(DbContextOptions options) : base(options) {}
+        public EmployeeContext(DbContextOptions<EmployeeContext> options) : base(options) {}
         public DbSet<Employee> Employee { get; set; }
         public DbSet<EmployeeAddress> EmployeeAddress { get; set; }
 
