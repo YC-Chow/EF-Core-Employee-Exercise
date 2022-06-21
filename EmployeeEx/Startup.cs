@@ -24,7 +24,16 @@ namespace EmployeeEx {
             services.AddDbContext<EmployeeContext>(options => {
                 options
                 .UseSqlServer(Configuration.GetConnectionString("default"));
-                //.UseLazyLoadingProxies();
+            });
+
+            services.AddDbContext<VarcharNVarcharContext>(options => {
+                options
+                .UseSqlServer(Configuration.GetConnectionString("default"));
+            });
+
+            services.AddDbContext<MasterSlaveContext>(options => {
+                options
+                .UseSqlServer(Configuration.GetConnectionString("default"));
             });
 
             //services.AddDbContextPool<PoolContext>(options => {
