@@ -4,6 +4,7 @@ using EFDataAccessLibrary.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFDataAccessLibrary.Migrations
 {
     [DbContext(typeof(EmployeeContext))]
-    partial class EmployeeContextModelSnapshot : ModelSnapshot
+    [Migration("20220620025648_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,6 +32,9 @@ namespace EFDataAccessLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTimeOffset>("DateTimeOffset")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("FName")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
@@ -40,6 +45,12 @@ namespace EFDataAccessLibrary.Migrations
 
                     b.Property<string>("MName")
                         .HasColumnType("varchar(100)");
+
+                    b.Property<DateTime>("RandomDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("TimeSpan")
+                        .HasColumnType("time");
 
                     b.HasKey("Id")
                         .HasName("PK_EmployeeId");
