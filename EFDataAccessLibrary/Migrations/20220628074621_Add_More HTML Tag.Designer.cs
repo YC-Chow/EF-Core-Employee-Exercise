@@ -4,6 +4,7 @@ using EFDataAccessLibrary.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFDataAccessLibrary.Migrations
 {
     [DbContext(typeof(EmployeeContext))]
-    partial class EmployeeContextModelSnapshot : ModelSnapshot
+    [Migration("20220628074621_Add_More HTML Tag")]
+    partial class Add_MoreHTMLTag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +39,8 @@ namespace EFDataAccessLibrary.Migrations
 
                     b.Property<string>("FName")
                         .IsRequired()
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("varchar(100)")
+                        .HasComment("Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World!");
 
                     b.Property<string>("LName")
                         .IsRequired()
@@ -98,68 +101,6 @@ namespace EFDataAccessLibrary.Migrations
                     b.ToTable("EmployeeAddress");
                 });
 
-            modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.EmployeeAddressNoIndex", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Address1")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("Address2")
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("Address3")
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ZipCode")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("EmployeeAddressNoINdex");
-                });
-
-            modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.EmployeeNoIndex", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("DateTime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<string>("FName")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("LName")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("MName")
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("Id");
-
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
-
-                    b.ToTable("EmployeeNoIndex");
-                });
-
             modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.EmployeeAddress", b =>
                 {
                     b.HasOne("EFDataAccessLibrary.Models.EmployeeFolder.Employee", "Employee")
@@ -171,23 +112,7 @@ namespace EFDataAccessLibrary.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.EmployeeAddressNoIndex", b =>
-                {
-                    b.HasOne("EFDataAccessLibrary.Models.EmployeeFolder.EmployeeNoIndex", "Employee")
-                        .WithMany("Addresses")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
             modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.Employee", b =>
-                {
-                    b.Navigation("Addresses");
-                });
-
-            modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.EmployeeNoIndex", b =>
                 {
                     b.Navigation("Addresses");
                 });

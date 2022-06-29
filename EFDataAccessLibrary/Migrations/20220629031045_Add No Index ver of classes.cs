@@ -1,30 +1,33 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace EFDataAccessLibrary.Migrations
 {
-    public partial class FirstMigrations : Migration
+    public partial class AddNoIndexverofclasses : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Employee",
+                name: "EmployeeNoIndex",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FName = table.Column<string>(type: "varchar(100)", nullable: false),
                     MName = table.Column<string>(type: "varchar(100)", nullable: true),
-                    LName = table.Column<string>(type: "varchar(100)", nullable: false)
+                    LName = table.Column<string>(type: "varchar(100)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "DateTime2", nullable: false, defaultValueSql: "getdate()")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmployeeId", x => x.Id);
+                    table.PrimaryKey("PK_EmployeeNoIndex", x => x.Id)
+                        .Annotation("SqlServer:Clustered", true);
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmployeeAddress",
+                name: "EmployeeAddressNoINdex",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -37,34 +40,28 @@ namespace EFDataAccessLibrary.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AddressId", x => x.Id);
+                    table.PrimaryKey("PK_EmployeeAddressNoINdex", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeAddress_Employee_EmployeeId",
+                        name: "FK_EmployeeAddressNoINdex_EmployeeNoIndex_EmployeeId",
                         column: x => x.EmployeeId,
-                        principalTable: "Employee",
+                        principalTable: "EmployeeNoIndex",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_FName",
-                table: "Employee",
-                column: "FName")
-                .Annotation("SqlServer:Clustered", false);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EmployeeAddress_EmployeeId",
-                table: "EmployeeAddress",
+                name: "IX_EmployeeAddressNoINdex_EmployeeId",
+                table: "EmployeeAddressNoINdex",
                 column: "EmployeeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "EmployeeAddress");
+                name: "EmployeeAddressNoINdex");
 
             migrationBuilder.DropTable(
-                name: "Employee");
+                name: "EmployeeNoIndex");
         }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFDataAccessLibrary.Migrations
 {
     [DbContext(typeof(EmployeeContext))]
-    [Migration("20220620080322_test2")]
-    partial class test2
+    [Migration("20220629031045_Add No Index ver of classes")]
+    partial class AddNoIndexverofclasses
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,11 @@ namespace EFDataAccessLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("DateTime2")
+                        .HasDefaultValueSql("getdate()");
+
                     b.Property<string>("FName")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
@@ -46,12 +51,15 @@ namespace EFDataAccessLibrary.Migrations
                     b.HasKey("Id")
                         .HasName("PK_EmployeeId");
 
-                    b.HasIndex("Id")
-                        .HasDatabaseName("IX_Id_FName_LName");
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("Id"), false);
-                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Id"), 85);
-                    SqlServerIndexBuilderExtensions.IncludeProperties(b.HasIndex("Id"), new[] { "LName" });
+                    b.HasIndex("CreatedDate")
+                        .HasDatabaseName("IX_CreatedDate");
+
+                    b.HasIndex("FName")
+                        .HasDatabaseName("IX_FName");
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("FName"), false);
 
                     b.ToTable("Employee");
                 });
@@ -92,6 +100,68 @@ namespace EFDataAccessLibrary.Migrations
                     b.ToTable("EmployeeAddress");
                 });
 
+            modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.EmployeeAddressNoIndex", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address1")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Address2")
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Address3")
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ZipCode")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("EmployeeAddressNoINdex");
+                });
+
+            modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.EmployeeNoIndex", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("DateTime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("FName")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("LName")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("MName")
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+
+                    b.ToTable("EmployeeNoIndex");
+                });
+
             modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.EmployeeAddress", b =>
                 {
                     b.HasOne("EFDataAccessLibrary.Models.EmployeeFolder.Employee", "Employee")
@@ -103,7 +173,23 @@ namespace EFDataAccessLibrary.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.EmployeeAddressNoIndex", b =>
+                {
+                    b.HasOne("EFDataAccessLibrary.Models.EmployeeFolder.EmployeeNoIndex", "Employee")
+                        .WithMany("Addresses")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.Employee", b =>
+                {
+                    b.Navigation("Addresses");
+                });
+
+            modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.EmployeeNoIndex", b =>
                 {
                     b.Navigation("Addresses");
                 });

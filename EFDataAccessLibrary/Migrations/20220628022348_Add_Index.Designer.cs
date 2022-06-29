@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFDataAccessLibrary.Migrations
 {
     [DbContext(typeof(EmployeeContext))]
-    [Migration("20220525093112_AddCompany")]
-    partial class AddCompany
+    [Migration("20220628022348_Add_Index")]
+    partial class Add_Index
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,32 +24,6 @@ namespace EFDataAccessLibrary.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("EFDataAccessLibrary.Models.Company.Company", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CompanyAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CompanyZipCode")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfEmployees")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id")
-                        .HasName("PK_CompanyId");
-
-                    b.ToTable("Company");
-                });
-
             modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -58,8 +32,10 @@ namespace EFDataAccessLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("DateTime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("FName")
                         .IsRequired()
@@ -75,7 +51,15 @@ namespace EFDataAccessLibrary.Migrations
                     b.HasKey("Id")
                         .HasName("PK_EmployeeId");
 
-                    b.HasIndex("CompanyId");
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+
+                    b.HasIndex("CreatedDate")
+                        .HasDatabaseName("IX_CreatedDate");
+
+                    b.HasIndex("FName")
+                        .HasDatabaseName("IX_FName");
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("FName"), false);
 
                     b.ToTable("Employee");
                 });
@@ -107,18 +91,13 @@ namespace EFDataAccessLibrary.Migrations
                     b.HasKey("Id")
                         .HasName("PK_AddressId");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("EmployeeId")
+                        .HasDatabaseName("IX_EmployeeId");
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("EmployeeId"), false);
+                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("EmployeeId"), 85);
 
                     b.ToTable("EmployeeAddress");
-                });
-
-            modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.Employee", b =>
-                {
-                    b.HasOne("EFDataAccessLibrary.Models.Company.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId");
-
-                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("EFDataAccessLibrary.Models.EmployeeFolder.EmployeeAddress", b =>

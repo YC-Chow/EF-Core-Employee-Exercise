@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFDataAccessLibrary.Migrations.MasterSlave
 {
     [DbContext(typeof(MasterSlaveContext))]
-    [Migration("20220621063543_InitialMaster")]
-    partial class InitialMaster
+    [Migration("20220621093320_ChangeSeqId")]
+    partial class ChangeSeqId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,7 @@ namespace EFDataAccessLibrary.Migrations.MasterSlave
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newID()");
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
@@ -50,7 +50,7 @@ namespace EFDataAccessLibrary.Migrations.MasterSlave
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newID()");
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()

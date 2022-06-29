@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EFDataAccessLibrary.Migrations.MasterSlave
 {
-    public partial class InitialMaster : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace EFDataAccessLibrary.Migrations.MasterSlave
                 name: "Master",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newID()"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newid()"),
                     FirstName = table.Column<string>(type: "nvarchar(20)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getDate()")
                 },
@@ -26,7 +26,7 @@ namespace EFDataAccessLibrary.Migrations.MasterSlave
                 name: "Slave",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newID()"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newid()"),
                     FirstName = table.Column<string>(type: "nvarchar(20)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
                     MasterId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)

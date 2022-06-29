@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFDataAccessLibrary.Migrations
 {
     [DbContext(typeof(EmployeeContext))]
-    [Migration("20220620025648_test")]
-    partial class test
+    [Migration("20220628080558_Remove Commentsss")]
+    partial class RemoveCommentsss
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,8 +32,10 @@ namespace EFDataAccessLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTimeOffset>("DateTimeOffset")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("DateTime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("FName")
                         .IsRequired()
@@ -46,21 +48,18 @@ namespace EFDataAccessLibrary.Migrations
                     b.Property<string>("MName")
                         .HasColumnType("varchar(100)");
 
-                    b.Property<DateTime>("RandomDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("TimeSpan")
-                        .HasColumnType("time");
-
                     b.HasKey("Id")
                         .HasName("PK_EmployeeId");
 
-                    b.HasIndex("Id")
-                        .HasDatabaseName("IX_Id_FName_LName");
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("Id"), false);
-                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Id"), 85);
-                    SqlServerIndexBuilderExtensions.IncludeProperties(b.HasIndex("Id"), new[] { "LName" });
+                    b.HasIndex("CreatedDate")
+                        .HasDatabaseName("IX_CreatedDate");
+
+                    b.HasIndex("FName")
+                        .HasDatabaseName("IX_FName");
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("FName"), false);
 
                     b.ToTable("Employee");
                 });
