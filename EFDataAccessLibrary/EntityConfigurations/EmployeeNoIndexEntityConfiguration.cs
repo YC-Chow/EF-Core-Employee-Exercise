@@ -1,22 +1,21 @@
-﻿using System;
+﻿using EFDataAccessLibrary.Models.EmployeeFolder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EFDataAccessLibrary.Models.EmployeeFolder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EFDataAccessLibrary.EntityConfigurations {
-    public class EmployeeEntityConfigurations : IEntityTypeConfiguration<Employee> {
-        public void Configure(EntityTypeBuilder<Employee> builder) {
+    public class EmployeeNoIndexEntityConfiguration : IEntityTypeConfiguration<EmployeeNoIndex> {
+        public void Configure(EntityTypeBuilder<EmployeeNoIndex> builder) {
             builder
                 .HasKey(p => p.Id)
-                .HasName("PK_EmployeeId")
                 .IsClustered(true);
 
             builder
-                .HasMany<EmployeeAddress>(p => p.Addresses)
+                .HasMany<EmployeeAddressNoIndex>(p => p.Addresses)
                 .WithOne(e => e.Employee)
                 .HasForeignKey(e => e.EmployeeId);
 
@@ -34,10 +33,6 @@ namespace EFDataAccessLibrary.EntityConfigurations {
             builder.Property(p => p.CreatedDate)
                 .HasColumnType("DateTime2")
                 .HasDefaultValueSql("getdate()");
-
-            builder.HasIndex(p => p.CreatedDate).HasDatabaseName("IX_CreatedDate");
-            builder.HasIndex(p => p.FName).IsClustered(false).HasDatabaseName("IX_FName");
-
         }
     }
 }

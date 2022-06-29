@@ -10,6 +10,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace EFDataAccessLibrary.EntityConfigurations {
     public class EmployeeAddressEntityConfigurations : IEntityTypeConfiguration<EmployeeAddress> {
         public void Configure(EntityTypeBuilder<EmployeeAddress> builder) {
+
+            builder
+                .HasKey(p => p.Id)
+                .HasName("PK_AddressId");
+
             builder.Property(p => p.Address1)
                 .HasColumnType("varchar(200)")
                 .IsRequired();
