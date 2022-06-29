@@ -36,6 +36,10 @@ namespace EmployeeEx {
                 .UseSqlServer(Configuration.GetConnectionString("default"));
             });
 
+            services.AddDbContext<RandomContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("default"));
+            });
+
             //services.AddDbContextPool<PoolContext>(options => {
             //    options
             //    .UseSqlServer(Configuration.GetConnectionString("Default"));
