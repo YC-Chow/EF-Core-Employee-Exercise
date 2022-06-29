@@ -15,6 +15,10 @@ namespace EFDataAccessLibrary.DataAccess {
         public DbSet<Employee> Employee { get; set; }
         public DbSet<EmployeeAddress> EmployeeAddress { get; set; }
 
+        public DbSet<EmployeeNoIndex> EmployeeNoIndex { get; set; }
+
+        public DbSet<EmployeeAddressNoIndex> EmployeeAddressNoINdex { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder
                 .UseSqlServer(
             "Data Source=localhost,1433;Initial Catalog = EmployeeTest ;Integrated Security=True;" +
@@ -24,19 +28,8 @@ namespace EFDataAccessLibrary.DataAccess {
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.ApplyConfiguration(new EmployeeEntityConfigurations());
             modelBuilder.ApplyConfiguration(new EmployeeAddressEntityConfigurations());
-
-            modelBuilder.Entity<Employee>()
-                .HasKey(p => p.Id)
-                .HasName("PK_EmployeeId");
-
-            modelBuilder.Entity<EmployeeAddress>()
-                .HasKey(p => p.Id)
-                .HasName("PK_AddressId");
-
-            modelBuilder.Entity<Employee>()
-                .HasMany<EmployeeAddress>(p => p.Addresses)
-                .WithOne(e => e.Employee)
-                .HasForeignKey(e => e.EmployeeId);
+            modelBuilder.ApplyConfiguration(new EmployeeAddressNoIndexEntityConfigurations());
+            modelBuilder.ApplyConfiguration(new EmployeeNoIndexEntityConfiguration());
 
         }
     }
